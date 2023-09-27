@@ -1,15 +1,28 @@
 package structs;
 
-public class PostData {
-    int docId;
-    int weight;
+public class PostData extends Writeable{
+    public String docId;
+    public String weight;
 
-    PostData(int docId, int weight) {
+    public PostData() {
+        this("","");
+    }
+    public PostData(String docId, String weight) {
+        super(docId, weight);
         this.docId = docId;
         this.weight = weight;
     }
 
-    void print(){
+    @Override
+    protected void reassignFields() {
+        this.docId = this.columns[0];
+        this.weight = this.columns[1];
+    }
+
+    @Override
+    public void print(){
         System.out.println("DocID: " + this.docId + ", Weight: " + this.weight);
     }
+
+
 }

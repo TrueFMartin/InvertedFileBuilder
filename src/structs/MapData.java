@@ -1,20 +1,27 @@
 package structs;
 
-public class MapData {
-    public int docId;
+public class MapData extends Writeable{
+    public String docId;
     public String fileName;
 
-    public MapData(int docId, String fileName) {
+    public MapData() {
+        this("", "");
+    }
+    public MapData(String docId, String fileName) {
+        super(docId, fileName);
         this.docId = docId;
         this.fileName = fileName;
     }
 
-    public MapData(String str, int offset) {
-        this.docId = Integer.parseInt(str.substring(0, offset).trim());
-        this.fileName = str.substring(offset).trim();
+    @Override
+    protected void reassignFields() {
+        this.docId = this.columns[0];
+        this.fileName = this.columns[1];
     }
 
-    void print(){
+    @Override
+    public void print(){
         System.out.println("DocID: " + this.docId + ", FileName: " + this.fileName);
     }
+
 }

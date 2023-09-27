@@ -1,17 +1,28 @@
 package structs;
 
-public class DictData {
-    public final String term;
-    public final int numDocs;
-    public final int start;
+public class DictData extends Writeable{
+    public String term;
+    public String numDocs;
+    public String start;
 
-    DictData(String term, int numDocs, int start) {
+    public DictData(){
+        this("","","");
+    }
+    public DictData(String term, String numDocs, String start) {
+        super(term, numDocs, start);
         this.term = term;
         this.numDocs = numDocs;
         this.start = start;
     }
 
-    void print(){
+    @Override
+    protected void reassignFields() {
+        this.term = columns[0];
+        this.numDocs = columns[1];
+        this.start = columns[2];
+    }
+    @Override
+    public void print(){
         System.out.println("Term: " + this.term + ", NumDocs: " + this.numDocs + ", Start: " + this.start);
     }
 }
